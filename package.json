@@ -1,0 +1,16 @@
+{
+  "name": "kaam-khata-mern",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Kaam Khata - MERN stack app (React/Vite client + Express/MongoDB server)",
+  "scripts": {
+    "client": "npm run dev --prefix client",
+    "server": "npm run dev --prefix server",
+    "dev": "concurrently -n CLIENT,SERVER -c blue,green \"npm run client\" \"npm run server\"",
+    "install-all": "npm install && npm install --prefix client && npm install --prefix server",
+    "build": "npm run build --prefix client"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
