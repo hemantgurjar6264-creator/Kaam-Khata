@@ -138,7 +138,7 @@ export const translations = {
         'This card summarises self-reported work entries that have been digitally confirmed by employers via Kaam Khata. It is intended to support, not replace, formal documentation required by lenders or government schemes. Generated at kaamkhata.app.',
     },
 
-    footer: 'Kaam Khata — Build for Good · Rozgaar. Demo data is stored locally in your browser.',
+    footer: 'Kaam Khata\nDigital Work Proof for Daily Wage Workers\nBuilt by Team Alpha Builders\n© 2026 All Rights Reserved',
     ledger: { hours: 'hrs', earned: 'earned' },
 
     login: {
@@ -385,7 +385,7 @@ export const translations = {
         'इस कार्ड में वो काम की एंट्रीज़ हैं जो मज़दूर ने खुद भरी हैं और मालिक ने काम खाता पर हाँ बोलकर पक्का किया है। यह बैंक या सरकारी योजना के असली कागज़ों की जगह नहीं ले सकता, बस उनकी मदद के लिए है। kaamkhata.app पर बना।',
     },
 
-    footer: 'काम खाता — Build for Good · रोज़गार। डेमो डेटा आपके फ़ोन/ब्राउज़र में ही सेव रहता है।',
+    footer: 'काम खाता\nदिहाड़ी मज़दूरों के लिए डिजिटल कार्य प्रमाण\nTeam Alpha Builders द्वारा निर्मित\n© 2026 सर्वाधिकार सुरक्षित',
 
     dash: {
       sidebar: { dashboard: 'डैशबोर्ड', logWork: 'काम लॉग करें', proof: 'प्रूफ़ कार्ड', home: 'होम' },
@@ -470,7 +470,7 @@ export const translations = {
       subtitle: 'अपने पक्के काम का रिकॉर्ड बनाना शुरू करें',
       iAmA: 'मैं हूँ...',
       roleWorker: 'मज़दूर',
-      roleEmployer: 'नियोक्ता',
+      roleEmployer: 'मालिक',
       name: 'नाम',
       namePh: 'रमेश कुमार',
       companyName: 'कंपनी / व्यवसाय का नाम',

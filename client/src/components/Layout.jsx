@@ -8,7 +8,7 @@ export default function Layout() {
     <div className="min-h-screen bg-ink">
       <Navbar />
       <Outlet />
-      <footer className="no-print max-w-7xl mx-auto px-6 sm:px-8 py-10 text-paper/35 text-xs">{t('footer')}</footer>
+<footer className="no-print max-w-7xl mx-auto px-6 sm:px-8 py-10 text-paper/35 text-xs text-center whitespace-pre-line leading-relaxed">{t('footer')}</footer>
     </div>
   )
 }
