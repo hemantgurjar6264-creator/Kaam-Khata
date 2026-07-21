@@ -15,6 +15,9 @@ import {
   deleteEntry,
   getPublicEntry,
   confirmPublicEntry,
+  getEntriesForEmployer,
+  employerUpdateStatus,
+  addEntryForWorker,
 } from '../controllers/workController.js'
 import { protect } from '../middleware/authMiddleware.js'
 
@@ -26,6 +29,11 @@ router.patch('/public/:id/status', confirmPublicEntry)
 
 // ---------- Everything below requires a logged-in user ----------
 router.use(protect)
+
+// Employer-only views (registered before the generic '/:id' route for clarity)
+router.get('/employer/mine', getEntriesForEmployer)
+router.patch('/employer/:id/status', employerUpdateStatus)
+router.post('/employer/log-for-worker', addEntryForWorker)
 
 router.get('/', getMyEntries)
 router.post('/', createEntry)

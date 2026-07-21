@@ -20,8 +20,8 @@ export default function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
 
-        {/* Protected routes: require a logged-in user */}
-        <Route element={<ProtectedRoute />}>
+        {/* Protected routes: require a logged-in worker (not employer) */}
+        <Route element={<ProtectedRoute workerOnly />}>
           <Route path="/log" element={<LogWork />} />
           <Route path="/proof" element={<ProofCard />} />
         </Route>

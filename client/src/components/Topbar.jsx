@@ -67,7 +67,9 @@ export default function Topbar({ search, onSearchChange, onMenuClick }) {
           </div>
           <div className="hidden sm:block leading-tight">
             <div className="text-paper text-sm font-semibold truncate max-w-[9rem]">{user?.name}</div>
-            <div className="text-paper/45 text-xs">{t('dash.role')}</div>
+            <div className="text-paper/45 text-xs">
+              {user?.role === 'employer' ? t('register.roleEmployer') : t('register.roleWorker')}
+            </div>
           </div>
         </div>
       </div>

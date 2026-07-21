@@ -7,8 +7,8 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext.jsx'
 
-export default function ProtectedRoute() {
-  const { isLoggedIn, loading } = useAuth()
+export default function ProtectedRoute({ workerOnly = false }) {
+  const { isLoggedIn, loading, user } = useAuth()
   const location = useLocation()
 
   if (loading) {
@@ -21,6 +21,13 @@ export default function ProtectedRoute() {
 
   if (!isLoggedIn) {
     return <Navigate to="/login" replace state={{ from: location.pathname }} />
+  }
+
+  // Some features (logging work, the proof card) only make sense for
+  // worker accounts. Employers who navigate here directly get bounced
+  // back to their own dashboard instead of seeing a worker-only page.
+  if (workerOnly && user?.role === 'employer') {
+    return <Navigate to="/dashboard" replace />
   }
 
   return <Outlet />

@@ -11,6 +11,28 @@ export async function fetchMyEntries() {
   return data.entries
 }
 
+/** Fetch all work entries logged against the logged-in employer. */
+export async function fetchEmployerEntries() {
+  const { data } = await api.get('/work/employer/mine')
+  return data.entries
+}
+
+/** Employer confirms or disputes an entry directly from their dashboard. */
+export async function employerConfirmEntry(id, status) {
+  const { data } = await api.patch(`/work/employer/${id}/status`, { status })
+  return data.entry
+}
+
+/**
+ * Employer directly logs a work entry for a worker (by phone number),
+ * skipping the WhatsApp confirmation step entirely - the entry is
+ * created already confirmed.
+ */
+export async function employerLogEntryForWorker(payload) {
+  const { data } = await api.post('/work/employer/log-for-worker', payload)
+  return data.entry
+}
+
 /** Fetch a single entry the logged-in user owns. */
 export async function fetchEntry(id) {
   const { data } = await api.get(`/work/${id}`)

@@ -7,13 +7,18 @@ import logoIcon from '../assets/logo-icon.png'
 export default function Sidebar({ open, onClose }) {
   const { pathname } = useLocation()
   const { t } = useLanguage()
-  const { logout } = useAuth()
+  const { logout, user } = useAuth()
   const navigate = useNavigate()
+  const isEmployer = user?.role === 'employer'
 
   const LINKS = [
     { to: '/dashboard', label: t('dash.sidebar.dashboard'), icon: LayoutGrid },
-    { to: '/log', label: t('dash.sidebar.logWork'), icon: PlusCircle },
-    { to: '/proof', label: t('dash.sidebar.proof'), icon: ScrollText },
+    ...(isEmployer
+      ? []
+      : [
+          { to: '/log', label: t('dash.sidebar.logWork'), icon: PlusCircle },
+          { to: '/proof', label: t('dash.sidebar.proof'), icon: ScrollText },
+        ]),
     { to: '/', label: t('dash.sidebar.home'), icon: Home },
   ]
 
@@ -60,20 +65,22 @@ export default function Sidebar({ open, onClose }) {
           })}
         </nav>
 
-        <div className="px-3 pb-3">
-          <div className="rounded-2xl bg-gradient-to-br from-stamp-amber/20 to-stamp-amber/5 border border-stamp-amber/25 p-4">
-            <Sparkles size={18} className="text-stamp-amber mb-2" />
-            <div className="text-paper text-sm font-semibold leading-snug">{t('dash.promo.title')}</div>
-            <p className="text-paper/55 text-xs mt-1 leading-relaxed">{t('dash.promo.body')}</p>
-            <Link
-              to="/proof"
-              onClick={onClose}
-              className="focus-ring mt-3 inline-flex w-full items-center justify-center rounded-full bg-stamp-amber text-ink text-xs font-bold py-2 hover:brightness-110 transition"
-            >
-              {t('dash.promo.cta')}
-            </Link>
+        {!isEmployer && (
+          <div className="px-3 pb-3">
+            <div className="rounded-2xl bg-gradient-to-br from-stamp-amber/20 to-stamp-amber/5 border border-stamp-amber/25 p-4">
+              <Sparkles size={18} className="text-stamp-amber mb-2" />
+              <div className="text-paper text-sm font-semibold leading-snug">{t('dash.promo.title')}</div>
+              <p className="text-paper/55 text-xs mt-1 leading-relaxed">{t('dash.promo.body')}</p>
+              <Link
+                to="/proof"
+                onClick={onClose}
+                className="focus-ring mt-3 inline-flex w-full items-center justify-center rounded-full bg-stamp-amber text-ink text-xs font-bold py-2 hover:brightness-110 transition"
+              >
+                {t('dash.promo.cta')}
+              </Link>
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="px-3 pb-5 pt-1 border-t border-white/10">
           <button

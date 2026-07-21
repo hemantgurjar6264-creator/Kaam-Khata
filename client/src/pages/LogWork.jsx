@@ -60,6 +60,7 @@ export default function LogWork() {
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
   const [locationStatus, setLocationStatus] = useState('idle') // idle | loading | done | error | unsupported
+  const [locationErrorMsg, setLocationErrorMsg] = useState('')
   const recognitionRef = useRef(null)
 
   const update = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }))
@@ -77,14 +78,33 @@ export default function LogWork() {
       setLocationStatus('unsupported')
       return
     }
+    // Geolocation only works on secure origins (https) or localhost.
+    if (window.location.protocol !== 'https:' && window.location.hostname !== 'localhost') {
+      setLocationStatus('error')
+      setLocationErrorMsg('Location sirf HTTPS site par ya localhost par kaam karta hai. Is site ka URL http:// se shuru ho raha hai.')
+      return
+    }
     setLocationStatus('loading')
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         setForm((f) => ({ ...f, location: { lat: pos.coords.latitude, lng: pos.coords.longitude } }))
         setLocationStatus('done')
+        setLocationErrorMsg('')
       },
-      () => setLocationStatus('error'),
-      { enableHighAccuracy: true, timeout: 10000 }
+      (err) => {
+        console.error('Geolocation error:', err.code, err.message)
+        setLocationStatus('error')
+        if (err.code === err.PERMISSION_DENIED) {
+          setLocationErrorMsg('Permission deny ho gayi hai. Browser settings me is site ke liye Location "Allow" karo.')
+        } else if (err.code === err.POSITION_UNAVAILABLE) {
+          setLocationErrorMsg('Device ki location detect nahi ho payi. GPS/Location service on karke dobara try karo.')
+        } else if (err.code === err.TIMEOUT) {
+          setLocationErrorMsg('Location lene me zyada time lag gaya. Dobara try karo, ya thodi der khule aasman ke neeche jao.')
+        } else {
+          setLocationErrorMsg('Location capture nahi ho payi. Dobara try karo.')
+        }
+      },
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 60000 }
     )
   }
 
@@ -354,7 +374,7 @@ export default function LogWork() {
             </button>
           )}
           {locationStatus === 'error' && (
-            <div className="text-xs text-maroon mt-1">{t('logwork.locationError')}</div>
+            <div className="text-xs text-maroon mt-1">{locationErrorMsg || t('logwork.locationError')}</div>
           )}
           {locationStatus === 'unsupported' && (
             <div className="text-xs text-maroon mt-1">{t('logwork.locationUnsupported')}</div>
