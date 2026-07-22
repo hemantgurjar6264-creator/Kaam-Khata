@@ -10,6 +10,7 @@ import helmet from 'helmet'
 import { connectDB } from './config/db.js'
 import authRoutes from './routes/authRoutes.js'
 import workRoutes from './routes/workRoutes.js'
+import jobRoutes from './routes/jobRoutes.js'
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 
 dotenv.config()
@@ -38,6 +39,7 @@ app.get('/api/health', (req, res) => {
 
 app.use('/api/auth', authRoutes)
 app.use('/api/work', workRoutes)
+app.use('/api/jobs', jobRoutes)
 
 // ---------- Error handling (must be last) ----------
 app.use(notFound)

@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { LayoutGrid, PlusCircle, ScrollText, Home, LogOut, Sparkles } from 'lucide-react'
+import { LayoutGrid, PlusCircle, ScrollText, Home, LogOut, Sparkles, Briefcase } from 'lucide-react'
 import { useLanguage } from '../context/LanguageContext.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
 import logoIcon from '../assets/logo-icon.png'
@@ -13,6 +13,7 @@ export default function Sidebar({ open, onClose }) {
 
   const LINKS = [
     { to: '/dashboard', label: t('dash.sidebar.dashboard'), icon: LayoutGrid },
+    { to: '/jobs', label: t('dash.sidebar.jobs'), icon: Briefcase },
     ...(isEmployer
       ? []
       : [

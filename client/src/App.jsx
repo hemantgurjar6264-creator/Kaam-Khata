@@ -3,6 +3,7 @@ import Layout from './components/Layout.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import Home from './pages/Home.jsx'
 import Dashboard from './pages/Dashboard.jsx'
+import Jobs from './pages/Jobs.jsx'
 import LogWork from './pages/LogWork.jsx'
 import ProofCard from './pages/ProofCard.jsx'
 import Confirm from './pages/Confirm.jsx'
@@ -30,6 +31,7 @@ export default function App() {
       {/* Dashboard renders its own sidebar shell instead of the shared Navbar/Layout */}
       <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/jobs" element={<Jobs />} />
       </Route>
     </Routes>
   )
